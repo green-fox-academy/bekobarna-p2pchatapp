@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class Restcontroller {
 
-    @RequestMapping(value = "/log", method = RequestMethod.GET)
+    /*@RequestMapping(value = "/log", method = RequestMethod.GET)
     public ChatLog log(HttpServletRequest request) {
-        return new ChatLog(request.getRequestURI(), request.getServletPath(), request.getMethod());
-    }
+        return new ChatLog(request);
+    }*/
 
 
 }

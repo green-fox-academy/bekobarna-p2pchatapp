@@ -18,5 +18,6 @@ public class ChatappApplication implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
+		System.out.println(new ChatLog().toString());
 	}
 }
