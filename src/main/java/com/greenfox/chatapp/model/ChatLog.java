@@ -33,7 +33,6 @@ public class ChatLog {
         this.param = request.getQueryString();
     }
 
-
     //2017-05-16 21:47:19.040 INFO Request /message POST text=apple
     @Override
     public String toString() {
