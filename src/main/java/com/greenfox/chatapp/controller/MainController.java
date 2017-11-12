@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class MainController {
 
 
-    @GetMapping(value = "/")
+    @GetMapping(value = "/index")
     public String index(HttpServletRequest request) {
         System.out.println(new ChatLog(request).toString());
         return "index";

@@ -3,40 +3,48 @@ package com.greenfox.chatapp.model;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.servlet.http.HttpServletRequest;
 
 
 public class ChatLog {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    Long id;
+
     String dateTime;
     String logLevel;
-    String requestData;
-    String method;
     String path;
-
-   /* @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    Long id;*/
+    String method;
+    String param;
 
     public ChatLog() {
-        this.dateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-mm-dd HH:mm:ss.SSS"));
     }
 
     public ChatLog(HttpServletRequest request) {
-        this.path = request.getQueryString();
         this.method = request.getMethod();
-        this.requestData = request.getRequestURI();
+        this.path = request.getRequestURI();
         this.dateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-mm-dd HH:mm:ss.SSS"));
-        if (request == null) {
-            this.logLevel = "ERROR";
-        } else {
-            this.logLevel = "INFO Request";
-        }
+        this.logLevel = System.getenv("CHAT_APP_LOGLEVEL");
+        this.param = request.getQueryString();
     }
 
+
+    //2017-05-16 21:47:19.040 INFO Request /message POST text=apple
     @Override
     public String toString() {
-        return dateTime + " "  + logLevel + " " + requestData + " " + method + " " + path;
+        return dateTime + " " + logLevel + " " + path + " " + method + " " + param;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getDateTime() {
@@ -56,19 +64,19 @@ public class ChatLog {
     }
 
     public String getPath() {
-        return path;
+        return param;
     }
 
-    public void setPath(String path) {
-        this.path = path;
+    public void setPath(String param) {
+        this.param = param;
     }
 
     public String getRequestData() {
-        return requestData;
+        return path;
     }
 
-    public void setRequestData(String requestData) {
-        this.requestData = requestData;
+    public void setRequestData(String path) {
+        this.path = path;
     }
 
     public String getLogLevel() {
