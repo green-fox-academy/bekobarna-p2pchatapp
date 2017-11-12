@@ -20,9 +20,12 @@ public class Restcontroller {
     ChatLogRepository chatLogRepository;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public void log(HttpServletRequest request, Exception exception) {
+    public String log(HttpServletRequest request, Exception exception) {
         chatLogService.checkEnvironment(request, exception);
-        chatLogRepository.save(new ChatLog(request));
+        ChatLog log = new ChatLog(request);
+        chatLogRepository.save(log);
+        return log.toString();
+
     }
 
 }
