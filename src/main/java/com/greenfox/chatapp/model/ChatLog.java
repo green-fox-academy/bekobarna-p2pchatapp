@@ -3,12 +3,13 @@ package com.greenfox.chatapp.model;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.servlet.http.HttpServletRequest;
 
-
+@Entity
 public class ChatLog {
 
     @Id
@@ -27,7 +28,7 @@ public class ChatLog {
     public ChatLog(HttpServletRequest request) {
         this.method = request.getMethod();
         this.path = request.getRequestURI();
-        this.dateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-mm-dd HH:mm:ss.SSS"));
+        this.dateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS"));
         this.logLevel = System.getenv("CHAT_APP_LOGLEVEL");
         this.param = request.getQueryString();
     }
