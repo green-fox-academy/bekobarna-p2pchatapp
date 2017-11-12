@@ -11,7 +11,6 @@ buildscript {
 }
 
 apply plugin: 'java'
-apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 
 group = 'com.greenfox'
@@ -30,8 +29,5 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	compile 'org.postgresql:postgresql:42.1.4'
-	compile 'org.springframework.boot:spring-boot-starter-actuator:1.5.8.RELEASE'
-	compile 'org.hibernate:hibernate-core:5.2.12.Final'
-	compile 'org.hibernate:hibernate-entitymanager:5.2.12.Final'
 
 }

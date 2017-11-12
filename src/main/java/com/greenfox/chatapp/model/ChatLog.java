@@ -2,57 +2,49 @@ package com.greenfox.chatapp.model;
 
 
 import java.time.LocalDateTime;
-import java.util.logging.Logger;
+import java.time.format.DateTimeFormatter;
 import javax.servlet.http.HttpServletRequest;
-import org.springframework.format.annotation.DateTimeFormat;
 
 
 public class ChatLog {
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSS")
-    LocalDateTime dateTime;
+    String dateTime;
+    String logLevel;
+    String requestData;
     String method;
     String path;
-    String requestData;
-    String logLevel;
-
-
-    private final static Logger LOGGER = Logger.getLogger(ChatLog.class.getName());
-
-
-
 
    /* @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;*/
 
     public ChatLog() {
-        this.dateTime = LocalDateTime.now();
+        this.dateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-mm-dd HH:mm:ss.SSS"));
     }
 
     public ChatLog(HttpServletRequest request) {
-        this.path = request.getContextPath();
+        this.path = request.getQueryString();
         this.method = request.getMethod();
-        this.requestData = request.getRequestURI() + request.getQueryString();
-        this.dateTime = LocalDateTime.now();
+        this.requestData = request.getRequestURI();
+        this.dateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-mm-dd HH:mm:ss.SSS"));
         if (request == null) {
             this.logLevel = "ERROR";
         } else {
-            this.logLevel = "INFO";
+            this.logLevel = "INFO Request";
         }
     }
 
     @Override
     public String toString() {
-        return dateTime + " "  + logLevel + " " + path + " " + method + " " + requestData ;
+        return dateTime + " "  + logLevel + " " + requestData + " " + method + " " + path;
     }
 
-    public LocalDateTime getDateTime() {
+    public String getDateTime() {
         return dateTime;
     }
 
-    public void setDateTime(LocalDateTime dateTime) {
-        this.dateTime = LocalDateTime.now();
+    public void setDateTime(String dateTime) {
+        this.dateTime = dateTime;
     }
 
     public String getMethod() {
