@@ -2,8 +2,8 @@ package com.greenfox.chatapp.controller;
 
 
 import com.greenfox.chatapp.model.ChatLog;
+import com.greenfox.chatapp.repository.ChatLogRepository;
 import com.greenfox.chatapp.service.ChatLogService;
-import javax.security.auth.callback.CallbackHandler;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,9 +16,13 @@ public class Restcontroller {
     @Autowired
     ChatLogService chatLogService;
 
+    @Autowired
+    ChatLogRepository chatLogRepository;
+
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public void log(HttpServletRequest request, Exception exception) {
         chatLogService.checkEnvironment(request, exception);
+        chatLogRepository.save(new ChatLog(request));
     }
 
 }
