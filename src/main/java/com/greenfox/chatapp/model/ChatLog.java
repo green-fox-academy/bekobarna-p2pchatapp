@@ -9,12 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.servlet.http.HttpServletRequest;
 
-@Entity
 public class ChatLog {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    Long id;
 
     String dateTime;
     String logLevel;
@@ -37,14 +32,6 @@ public class ChatLog {
     @Override
     public String toString() {
         return dateTime + " " + logLevel + " " + path + " " + method + " " + param;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getDateTime() {
