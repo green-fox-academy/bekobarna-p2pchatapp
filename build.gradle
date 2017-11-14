@@ -29,5 +29,7 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	compile 'org.postgresql:postgresql:42.1.4'
+	compile("com.fasterxml.jackson.core:jackson-databind")
+
 
 }

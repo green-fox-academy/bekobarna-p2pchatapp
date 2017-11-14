@@ -15,10 +15,10 @@ public class Restcontroller {
     ChatLogService chatLogService;
 
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+   /* @RequestMapping(value = "/", method = RequestMethod.GET)
     public void log(HttpServletRequest request, Exception exception) {
         chatLogService.checkEnvironment(request, exception);
 
     }
-
+*/
 }

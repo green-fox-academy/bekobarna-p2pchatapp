@@ -1,7 +1,8 @@
 package com.greenfox.chatapp.model;
 
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.concurrent.ThreadLocalRandom;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -14,16 +15,18 @@ public class ChatMessage {
 
     String userName;
     String text;
-    Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-
+    String timestamp;
 
     public ChatMessage() {
+        this.id = randomId();
+        this.timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS"));
     }
 
-    public ChatMessage(String userName, String text, String timestamp) {
+    public ChatMessage(String userName, String text) {
         this.id = randomId();
         this.userName = userName;
         this.text = text;
+        this.timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS"));
     }
 
     public Long randomId() {
@@ -35,8 +38,8 @@ public class ChatMessage {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setId() {
+        this.id = randomId();
     }
 
     public String getUserName() {
@@ -55,11 +58,11 @@ public class ChatMessage {
         this.text = text;
     }
 
-    public Timestamp getTimestamp() {
+    public String getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(Timestamp timestamp) {
+    public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
     }
 }

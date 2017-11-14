@@ -10,9 +10,9 @@ public class ChatUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    Long userId;
+    public Long id;
 
-    String userName;
+    public String userName;
 
     public ChatUser() {
     }
@@ -22,11 +22,11 @@ public class ChatUser {
     }
 
     public Long getId() {
-        return userId;
+        return id;
     }
 
-    public void setId(Long userId) {
-        this.userId = userId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getUserName() {
