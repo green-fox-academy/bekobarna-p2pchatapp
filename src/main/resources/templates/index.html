@@ -9,7 +9,7 @@
 
 <form action="/updateUser" th:object="${user}" method="post">
   <input th:type="hidden" th:field="*{id}" />
-  <input type="text" th:field="*{userName}" th:placeholder="*{userName}"/>
+  <input type="text" th:field="*{username}" th:placeholder="*{username}"/>
   <button type="submit" th:text="'Update your username'"></button>
 </form>
 
@@ -22,7 +22,7 @@
 
 <div>
   <ul th:each="message : ${messages}">
-    <li th:text="${message.userName}"></li>
+    <li th:text="${message.username}"></li>
     <span th:text="${message.text}"></span>
   </ul>
 </div>

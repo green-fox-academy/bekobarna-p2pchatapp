@@ -49,7 +49,7 @@ public class MainController {
     @PostMapping(value = "/saveMessage")
     public String indexNew(HttpServletRequest request, Exception exception, @RequestParam(value = "text") String text){
         chatLogService.checkEnvironment(request, exception);
-        chatMessageRepository.save(new ChatMessage(chatUserService.getFirstUser().userName, text));
+        chatMessageRepository.save(new ChatMessage(chatUserService.getFirstUser().username, text));
         return "redirect:/";
     }
 
@@ -60,9 +60,9 @@ public class MainController {
     }
 
     @PostMapping(value = "/saveUser")
-    public String enterUser(HttpServletRequest request, Exception exception, @RequestParam String userName) {
+    public String enterUser(HttpServletRequest request, Exception exception, @RequestParam String username) {
         chatLogService.checkEnvironment(request, exception);
-        chatUserRepository.save(new ChatUser(userName));
+        chatUserRepository.save(new ChatUser(username));
         return "redirect:/";
     }
 

@@ -13,7 +13,7 @@ public class ChatMessage {
     @Id
     Long id;
 
-    String userName;
+    String username;
     String text;
     String timestamp;
 
@@ -22,11 +22,18 @@ public class ChatMessage {
         this.timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS"));
     }
 
-    public ChatMessage(String userName, String text) {
+    public ChatMessage(String username, String text) {
         this.id = randomId();
-        this.userName = userName;
+        this.username = username;
         this.text = text;
         this.timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS"));
+    }
+
+    public ChatMessage(Long id, String username, String text, String timestamp) {
+        this.id = id;
+        this.username = username;
+        this.text = text;
+        this.timestamp = timestamp;
     }
 
     public Long randomId() {
@@ -42,12 +49,12 @@ public class ChatMessage {
         this.id = randomId();
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getText() {
