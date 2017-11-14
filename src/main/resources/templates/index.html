@@ -9,8 +9,8 @@
 
 <form action="/updateUser" th:object="${user}" method="post">
   <input th:type="hidden" th:field="*{id}" />
-  <input  type="text" th:field="*{userName}" th:placeholder="*{userName}"/>
-  <br /> <button type="submit" th:text="'Update your username'"></button>
+  <input type="text" th:field="*{userName}" th:placeholder="*{userName}"/>
+  <button type="submit" th:text="'Update your username'"></button>
 </form>
 
 <div>
@@ -32,6 +32,7 @@
   <br /> <button type="submit" value="submit">Send</button>
 </form>
 
+<a th:href="@{/}">Refresh</a>
 
 </body>
 </html>

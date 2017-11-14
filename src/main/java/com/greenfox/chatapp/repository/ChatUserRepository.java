@@ -6,6 +6,4 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface ChatUserRepository extends CrudRepository<ChatUser, Long> {
 
-    /*List<ChatUser> findAllByIdGreaterThan(Long id);
-    ChatUser findAllByIdIs (Long id);*/
 }

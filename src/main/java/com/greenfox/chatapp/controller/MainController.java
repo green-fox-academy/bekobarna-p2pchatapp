@@ -42,24 +42,16 @@ public class MainController {
             chatLogService.checkEnvironment(request, exception);
             model.addAttribute("user", chatUserService.getFirstUser());
             model.addAttribute("messages", chatMessageRepository.findAll());
-           // model.addAttribute("newmessage", chatMessageRepository.save(new ChatMessage()));
             return "index";
         }
     }
 
     @PostMapping(value = "/saveMessage")
-    public String indexNew(HttpServletRequest request, Exception exception, @ModelAttribute ChatMessage message, @RequestParam(value = "text") String text){
+    public String indexNew(HttpServletRequest request, Exception exception, @RequestParam(value = "text") String text){
         chatLogService.checkEnvironment(request, exception);
         chatMessageRepository.save(new ChatMessage(chatUserService.getFirstUser().userName, text));
-       // chatMessageRepository.save();
-      //  chatMessageRepository.save(new ChatMessage(chatUserRepository.findOne(1l).getUserName(), message.getText()));
         return "redirect:/";
     }
-    /*@GetMapping(value = "/index")
-    public String index(HttpServletRequest request, Exception exception, Model model) {
-        chatLogService.checkEnvironment(request, exception);
-        return "index";
-    }*/
 
     @GetMapping(value = "/enter")
     public String enter(HttpServletRequest request, Exception exception) {
@@ -73,13 +65,6 @@ public class MainController {
         chatUserRepository.save(new ChatUser(userName));
         return "redirect:/";
     }
-
-   /* @GetMapping(value = "/index")
-    public String index(HttpServletRequest request, Exception exception, Model model) {
-        chatLogService.checkEnvironment(request, exception);
-        model.addAttribute("user", chatUserRepository.findOne(1l));
-        return "index";
-    }*/
 
     @PostMapping(value = "/updateUser")
     public String updatePost(HttpServletRequest request, Exception exception, @ModelAttribute ChatUser user) {
