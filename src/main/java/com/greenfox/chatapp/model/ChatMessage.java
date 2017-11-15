@@ -1,6 +1,8 @@
 package com.greenfox.chatapp.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.concurrent.ThreadLocalRandom;
@@ -8,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ChatMessage {
 
     @Id
@@ -15,21 +18,21 @@ public class ChatMessage {
 
     String username;
     String text;
-    String timestamp;
+    Timestamp timestamp;
 
     public ChatMessage() {
         this.id = randomId();
-        this.timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS"));
+        this.timestamp = new Timestamp(System.currentTimeMillis());
     }
 
     public ChatMessage(String username, String text) {
         this.id = randomId();
         this.username = username;
         this.text = text;
-        this.timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS"));
+        this.timestamp = new Timestamp(System.currentTimeMillis());
     }
 
-    public ChatMessage(Long id, String username, String text, String timestamp) {
+    public ChatMessage(Long id, String username, String text, Timestamp timestamp) {
         this.id = id;
         this.username = username;
         this.text = text;
@@ -65,11 +68,11 @@ public class ChatMessage {
         this.text = text;
     }
 
-    public String getTimestamp() {
+    public Timestamp getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(String timestamp) {
+    public void setTimestamp(Timestamp timestamp) {
         this.timestamp = timestamp;
     }
 }

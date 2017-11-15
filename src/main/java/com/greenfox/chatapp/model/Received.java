@@ -1,5 +1,8 @@
 package com.greenfox.chatapp.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Received {
     ChatMessage message;
     ChatUser client;
@@ -11,11 +14,6 @@ public class Received {
         this.message = message;
         this.client = client;
     }
-
-    /*@Override
-    public String toString() {
-        return message.getText() + client.getUserName();
-    }*/
 
     public ChatMessage getMessage() {
         return message;
@@ -31,5 +29,13 @@ public class Received {
 
     public void setClient(ChatUser client) {
         this.client = client;
+    }
+
+    @Override
+    public String toString() {
+        return "Received{" +
+            "message=" + message +
+            ", client=" + client +
+            '}';
     }
 }

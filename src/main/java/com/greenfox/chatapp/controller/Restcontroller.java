@@ -5,6 +5,7 @@ import com.greenfox.chatapp.model.ChatMessage;
 import com.greenfox.chatapp.model.Received;
 import com.greenfox.chatapp.repository.ChatMessageRepository;
 import com.greenfox.chatapp.service.ChatLogService;
+import com.greenfox.chatapp.service.ReceivedService;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,12 +22,17 @@ public class Restcontroller {
     @Autowired
     ChatMessageRepository chatMessageRepository;
 
+    @Autowired
+    ReceivedService receivedService;
+
     @PostMapping (value = "/api/message/receive")
     public Object receiveStatus(HttpServletRequest request, Exception exception, @RequestBody Received received) {
         chatLogService.checkEnvironment(request, exception);
-        return chatMessageRepository.save(new ChatMessage(received.getMessage().getId(), received.getMessage().getUsername(),
-            received.getMessage().getText(), received.getMessage().getTimestamp()));
+      //  receivedService.receiveStatus(received);
 
+       /* return chatMessageRepository.save(new ChatMessage(received.getMessage().getId(), received.getMessage().getUsername(),
+            received.getMessage().getText(), received.getMessage().getTimestamp()));*/
+        return receivedService.receiveStatus(received);
     }
 
 }
