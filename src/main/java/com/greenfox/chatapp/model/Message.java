@@ -11,7 +11,7 @@ import javax.persistence.Id;
 
 @Entity
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ChatMessage {
+public class Message {
 
     @Id
     Long id;
@@ -20,19 +20,19 @@ public class ChatMessage {
     String text;
     Timestamp timestamp;
 
-    public ChatMessage() {
+    public Message() {
         this.id = randomId();
         this.timestamp = new Timestamp(System.currentTimeMillis());
     }
 
-    public ChatMessage(String username, String text) {
+    public Message(String username, String text) {
         this.id = randomId();
         this.username = username;
         this.text = text;
         this.timestamp = new Timestamp(System.currentTimeMillis());
     }
 
-    public ChatMessage(Long id, String username, String text, Timestamp timestamp) {
+    public Message(Long id, String username, String text, Timestamp timestamp) {
         this.id = id;
         this.username = username;
         this.text = text;
@@ -48,8 +48,8 @@ public class ChatMessage {
         return id;
     }
 
-    public void setId() {
-        this.id = randomId();
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getUsername() {

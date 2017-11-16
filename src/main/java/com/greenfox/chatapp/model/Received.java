@@ -1,41 +1,30 @@
 package com.greenfox.chatapp.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class Received {
-    ChatMessage message;
-    ChatUser client;
+    Message message;
+    Client client;
 
     public Received() {
     }
 
-    public Received(ChatMessage message, ChatUser client) {
+    public Received(Message message, Client client) {
         this.message = message;
         this.client = client;
     }
 
-    public ChatMessage getMessage() {
+    public Message getMessage() {
         return message;
     }
 
-    public void setMessage(ChatMessage message) {
+    public void setMessage(Message message) {
         this.message = message;
     }
 
-    public ChatUser getClient() {
+    public Client getClient() {
         return client;
     }
 
-    public void setClient(ChatUser client) {
+    public void setClient(Client client) {
         this.client = client;
-    }
-
-    @Override
-    public String toString() {
-        return "Received{" +
-            "message=" + message +
-            ", client=" + client +
-            '}';
     }
 }

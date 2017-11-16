@@ -1,12 +1,14 @@
 package com.greenfox.chatapp.controller;
 
 
-import com.greenfox.chatapp.model.ChatMessage;
+import com.greenfox.chatapp.model.Message;
 import com.greenfox.chatapp.model.ChatUser;
-import com.greenfox.chatapp.repository.ChatMessageRepository;
+import com.greenfox.chatapp.model.Client;
+import com.greenfox.chatapp.model.Received;
 import com.greenfox.chatapp.repository.ChatUserRepository;
-import com.greenfox.chatapp.service.ChatLogService;
-import com.greenfox.chatapp.service.ChatUserService;
+import com.greenfox.chatapp.repository.MessageRepository;
+import com.greenfox.chatapp.service.ChatService;
+import java.sql.Timestamp;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,51 +26,55 @@ public class MainController {
     ChatUserRepository chatUserRepository;
 
     @Autowired
-    ChatLogService chatLogService;
+    ChatService chatService;
 
     @Autowired
-    ChatUserService chatUserService;
-
-    @Autowired
-    ChatMessageRepository chatMessageRepository;
+    MessageRepository messagerepo;
 
 
     @GetMapping(value = {"/", ""})
     public String index(HttpServletRequest request, Exception exception, Model model) {
-        chatLogService.checkEnvironment(request, exception);
+        chatService.checkEnvironment(request, exception);
         if (size(chatUserRepository.findAll()) == 0) {
             return "enter";
         } else  {
-            chatLogService.checkEnvironment(request, exception);
-            model.addAttribute("user", chatUserService.getFirstUser());
-            model.addAttribute("messages", chatMessageRepository.findAll());
+            chatService.checkEnvironment(request, exception);
+            model.addAttribute("user", chatService.getFirstUser());
+            model.addAttribute("messages", messagerepo.findAll());
             return "index";
         }
     }
 
     @PostMapping(value = "/saveMessage")
-    public String indexNew(HttpServletRequest request, Exception exception, @RequestParam(value = "text") String text){
-        chatLogService.checkEnvironment(request, exception);
-        chatMessageRepository.save(new ChatMessage(chatUserService.getFirstUser().username, text));
+    public String indexNew(HttpServletRequest request, Exception exception, @RequestParam(value = "text") String text, Model model, @ModelAttribute Message message){
+        chatService.checkEnvironment(request, exception);
+        model.addAttribute("message", new Message());
+        message.setUsername(chatUserRepository.findOne(1l).getUsername());
+        message.setId(message.randomId());
+        message.setTimestamp(new Timestamp(System.currentTimeMillis()));
+        chatService.sendMessage(new Received(message, new Client(System.getenv("CHAT_APP_UNIQUE_ID"))));
+       // RestTemplate restTemplate = new RestTemplate();
+       // Status status = restTemplate.postForObject("http://localhost:8080/api/message/receive", received, Status.class);
+        //chatMessageRepository.save(new Message(chatUserService.getFirstUser().username, text));
         return "redirect:/";
     }
 
     @GetMapping(value = "/enter")
     public String enter(HttpServletRequest request, Exception exception) {
-        chatLogService.checkEnvironment(request, exception);
+        chatService.checkEnvironment(request, exception);
         return "enter";
     }
 
     @PostMapping(value = "/saveUser")
     public String enterUser(HttpServletRequest request, Exception exception, @RequestParam String username) {
-        chatLogService.checkEnvironment(request, exception);
+        chatService.checkEnvironment(request, exception);
         chatUserRepository.save(new ChatUser(username));
         return "redirect:/";
     }
 
     @PostMapping(value = "/updateUser")
     public String updatePost(HttpServletRequest request, Exception exception, @ModelAttribute ChatUser user) {
-        chatLogService.checkEnvironment(request, exception);
+        chatService.checkEnvironment(request, exception);
         chatUserRepository.save(user);
         return "redirect:/";
     }
