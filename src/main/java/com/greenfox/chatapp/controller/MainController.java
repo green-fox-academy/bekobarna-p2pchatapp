@@ -5,6 +5,7 @@ import com.greenfox.chatapp.model.Message;
 import com.greenfox.chatapp.model.ChatUser;
 import com.greenfox.chatapp.model.Client;
 import com.greenfox.chatapp.model.Received;
+import com.greenfox.chatapp.model.Status;
 import com.greenfox.chatapp.repository.ChatUserRepository;
 import com.greenfox.chatapp.repository.MessageRepository;
 import com.greenfox.chatapp.service.ChatService;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.client.RestTemplate;
+
 import static org.codehaus.groovy.runtime.DefaultGroovyMethods.size;
 
 @Controller
@@ -49,13 +52,13 @@ public class MainController {
     public String indexNew(HttpServletRequest request, Exception exception, @RequestParam(value = "text") String text, Model model, @ModelAttribute Message message){
         chatService.checkEnvironment(request, exception);
         model.addAttribute("message", new Message());
-        message.setUsername(chatUserRepository.findOne(1l).getUsername());
+        message.setUsername(chatUserRepository.findById(1l).orElse(null).getUsername());
         message.setId(message.randomId());
         message.setTimestamp(new Timestamp(System.currentTimeMillis()));
         chatService.sendMessage(new Received(message, new Client(System.getenv("CHAT_APP_UNIQUE_ID"))));
-       // RestTemplate restTemplate = new RestTemplate();
-       // Status status = restTemplate.postForObject("http://localhost:8080/api/message/receive", received, Status.class);
-        //chatMessageRepository.save(new Message(chatUserService.getFirstUser().username, text));
+//        RestTemplate restTemplate = new RestTemplate();
+//        Status status = restTemplate.postForObject("http://localhost:8080/api/message/receive", received, Status.class);
+//        messagerepo.save(new Message(chatService.getFirstUser().getUsername(), text));
         return "redirect:/";
     }
 

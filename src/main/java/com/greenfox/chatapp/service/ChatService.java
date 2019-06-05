@@ -34,7 +34,7 @@ public class ChatService {
     }
 
     public ChatUser getFirstUser() {
-        return chatUserRepository.findOne(1l);
+        return chatUserRepository.findById(1l).orElse(null);
     }
 
     public String checkFields(Received received){
@@ -61,7 +61,7 @@ public class ChatService {
     public void sendMessage (Received received) {
         RestTemplate restTemplate = new RestTemplate();
         HttpEntity<Received> httpent = new HttpEntity<>(received);
-        Status s = restTemplate.postForObject(System.getenv("CHAT_APP_PEER_ADDRESSS"),httpent, Status.class);
+        Status s = restTemplate.postForObject(System.getenv("CHAT_APP_PEER_ADDRESS"),httpent, Status.class);
     }
 }
 
