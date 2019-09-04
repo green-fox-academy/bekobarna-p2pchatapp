@@ -37,6 +37,7 @@ public class MainController {
 
     @GetMapping(value = {"/", ""})
     public String index(HttpServletRequest request, Exception exception, Model model) {
+      System.out.println(System.getenv("USER"));
         chatService.checkEnvironment(request, exception);
         if (size(chatUserRepository.findAll()) == 0) {
             return "enter";
